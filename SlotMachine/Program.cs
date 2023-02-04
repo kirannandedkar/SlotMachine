@@ -4,6 +4,7 @@ namespace SlotMachine
 {
     internal class Program
     {
+        const double MONEY_AMOUNT = 2;
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Slot Machine Game");
@@ -14,14 +15,15 @@ namespace SlotMachine
                               "\nPress 4 if you want to play diagonal line" +
                               "\nPress 5 if you want to play all lines" +
                               "\n Each line cost 2 dollars. So if you select 5 then it will cost you 10 dollars");
-            string input = Console.ReadLine();
+           
             int[,] slotMachineArray = new int[3, 3];
 
             bool continueToPlay = false;
-            int moneyWon = 0;
+            double moneyWon = 0;
 
             do
             {
+                string input = Console.ReadLine();
                 Random rnd = new Random();
 
                 for (int i = 0; i < slotMachineArray.GetLength(0); i++)
@@ -29,15 +31,19 @@ namespace SlotMachine
                     for (int j = 0; j < slotMachineArray.GetLength(1); j++)
                     {
                         slotMachineArray[i, j] = rnd.Next(0, 2);
+                        
                     }
                 }
+                OutputArray(slotMachineArray);
 
                 if (input == "1") //center line
                 {
                     if (slotMachineArray[1, 0] == slotMachineArray[1, 1] &&
                         slotMachineArray[1, 1] == slotMachineArray[1, 2])
+                        
                     {
                         Console.WriteLine("Congrats you won");
+                        moneyWon += MONEY_AMOUNT;
                     }
                     else
                     {
@@ -49,6 +55,17 @@ namespace SlotMachine
 
                 if (input == "2")
                 {
+                    if ((slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]) ||
+                        (slotMachineArray[1, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[1, 2]) ||
+                        (slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2]))
+                    {
+                        Console.WriteLine("Congrats you won");
+                        moneyWon += MONEY_AMOUNT;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Bad Luck you lost");
+                    }
 
                 }
 
@@ -57,6 +74,7 @@ namespace SlotMachine
                 if (playAgain.ToLower() == "y")
                 {
                     continueToPlay = true;
+                    Console.WriteLine("Please select options again");
                 }
 
 
@@ -64,6 +82,19 @@ namespace SlotMachine
             } while (continueToPlay);
             
 
+        }
+
+        static void OutputArray(int[,] array)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(0); j++)
+                {
+                    Console.Write(array[i,j] + " ");
+                }
+
+                Console.WriteLine("\n");
+            }
         }
     }
 }
