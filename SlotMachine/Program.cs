@@ -6,7 +6,7 @@ namespace SlotMachine
     internal class Program
     {
         const double WIN_MONEY_AMOUNT_PER_LINE = 2;
-        static double moneyWon = 0;
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Slot Machine Game");
@@ -17,6 +17,7 @@ namespace SlotMachine
             bool continueToPlay;
             Random rnd = new Random();
             int[] validInputs = { 1, 2, 3, 4, 5, 6, 7, 8 };
+            double moneyWon = 0;
             do
             {
                 Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
@@ -34,6 +35,8 @@ namespace SlotMachine
 
                 bool isInputValid;
                 int input;
+                int wonLines = 0;
+                
                 do
                 {
                     isInputValid = int.TryParse(Console.ReadLine(), out input);
@@ -69,24 +72,15 @@ namespace SlotMachine
                     if (slotMachineArray[1, 0] == slotMachineArray[1, 1] &&
                         slotMachineArray[1, 1] == slotMachineArray[1, 2])
                     {
-                        DisplayWinAmount();
+                        wonLines++;
                     }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
-                    }
+                   
                 }
                 else if (input == 2) //Top horizontal row
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]))
                     {
-                        DisplayWinAmount();
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -94,12 +88,7 @@ namespace SlotMachine
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2]))
                     {
-                        DisplayWinAmount();
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -107,12 +96,7 @@ namespace SlotMachine
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0]))
                     {
-                        DisplayWinAmount();
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -120,12 +104,7 @@ namespace SlotMachine
                 {
                     if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1]))
                     {
-                        DisplayWinAmount();
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -133,12 +112,7 @@ namespace SlotMachine
                 {
                     if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2]))
                     {
-                        DisplayWinAmount();
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -147,13 +121,7 @@ namespace SlotMachine
                     if ((slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2]) ||
                         (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2]))
                     {
-                        DisplayWinAmount();
-
-                    }
-                    else
-                    {
-                        moneyWon -= 1;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        wonLines++;
                     }
                 }
 
@@ -200,13 +168,28 @@ namespace SlotMachine
                     {
                         noOfLinesWon += 1;
                     }
-
-                    DisplayWinAmount(noOfLinesWon);
+                    
                     if (noOfLinesWon == 0)
                     {
                         moneyWon -= 1 * 8;
                         Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
                     }
+                    else
+                    {
+                        moneyWon += WIN_MONEY_AMOUNT_PER_LINE * noOfLinesWon;
+                        Console.WriteLine($"Congrats you won. You have total {moneyWon} dollars");
+                    }
+                }
+
+                if (wonLines > 0)
+                {
+                    moneyWon += WIN_MONEY_AMOUNT_PER_LINE ;
+                    Console.WriteLine($"Congrats you won. You have total {moneyWon} dollars");
+                }
+                else
+                {
+                    moneyWon -= 1;
+                    Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
                 }
 
                 Console.WriteLine("Press Y to continue to play");
@@ -239,12 +222,6 @@ namespace SlotMachine
 
                 Console.WriteLine("\n");
             }
-        }
-
-        static void DisplayWinAmount(int noOfLinesWon = 1)
-        {
-            moneyWon += WIN_MONEY_AMOUNT_PER_LINE * noOfLinesWon;
-            Console.WriteLine($"Congrats you won. You have total {moneyWon} dollars");
         }
     }
 }
