@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-
+﻿
 namespace SlotMachine
 {
     internal class Program
@@ -15,7 +13,7 @@ namespace SlotMachine
             int[,] slotMachineArray = new int[3, 3];
 
             bool continueToPlay = false;
-
+            Random rnd = new Random();
             do
             {
                 Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
@@ -30,7 +28,7 @@ namespace SlotMachine
                                   "\n For each winning line you win 2 dollars. So if you win more than 1 line you get no of lines * 2 dollars back" +
                                   "\n Please enter your choice of line you want to play");
 
-                Random rnd = new Random();
+                
 
                 string input = Console.ReadLine();
                 for (int i = 0; i < slotMachineArray.GetLength(0); i++)
@@ -196,6 +194,10 @@ namespace SlotMachine
                     continueToPlay = true;
                     Console.Clear();
                     Console.WriteLine("Please select options again");
+                }
+                else
+                {
+                    continueToPlay = false;
                 }
 
                 Console.WriteLine($"Amount won so far is {moneyWon} USD");
