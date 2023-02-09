@@ -23,7 +23,7 @@ namespace SlotMachine
                                   "\nPress 4 if you want to play left vertical line" +
                                   "\nPress 5 if you want to play middle vertical line" +
                                   "\nPress 6 if you want to play right vertical line" +
-                                  "\nPress 7 if you want to play diagonal line" +
+                                  "\nPress 7 if you want to play diagonal lines" +
                                   "\nPress 8 if you want to play all lines" +
                                   "\n Each line cost 1 dollar. So if you select 5 then it will cost you 5 dollars" +
                                   "\n For each winning line you win 2 dollars. So if you win more than 1 line you get no of lines * 2 dollars back" +
@@ -141,7 +141,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 7) //diagonal line
+                if (input == 7) //diagonal lines
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2]) ||
                         (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2]))
