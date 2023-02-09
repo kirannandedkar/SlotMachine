@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.Design;
+
 namespace SlotMachine
 {
     internal class Program
@@ -75,8 +77,7 @@ namespace SlotMachine
                         Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
                     }
                 }
-
-                if (input == 2) //Top horizontal row
+                else if (input == 2) //Top horizontal row
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]))
                     {
@@ -89,7 +90,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 3) //bottom horizontal row
+                else if (input == 3) //bottom horizontal row
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2]))
                     {
@@ -102,7 +103,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 4) //left vertical row
+                else if (input == 4) //left vertical row
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0]))
                     {
@@ -115,7 +116,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 5) //middle vertical row
+                else if (input == 5) //middle vertical row
                 {
                     if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1]))
                     {
@@ -128,7 +129,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 6) //right vertical row
+                else if (input == 6) //right vertical row
                 {
                     if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2]))
                     {
@@ -141,7 +142,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 7) //diagonal lines
+                else if (input == 7) //diagonal lines
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2]) ||
                         (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2]))
@@ -156,7 +157,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input == 8)
+                else if (input == 8) //all lines
                 {
                     int noOfLinesWon = 0;
 
