@@ -17,7 +17,8 @@ namespace SlotMachine
             bool continueToPlay;
             Random rnd = new Random();
             int[] validInputs = { 1, 2, 3, 4, 5, 6, 7, 8 };
-            double moneyWon = 0;
+            
+            double startingCredit = 10;
             do
             {
                 Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
@@ -36,17 +37,24 @@ namespace SlotMachine
                 bool isInputValid;
                 int input;
                 int wonLines = 0;
+                int totalLinesWonPlayingAllLines = 0;
+                double moneyWon = 0;
+
+                Console.WriteLine($"Your current credit is {startingCredit} USD");
+
+                if (startingCredit <= 0)
+                {
+                    Console.WriteLine("Sorry you cant play anymore as you have no credit remaining");
+                    break;
+                }
                 
                 do
                 {
                     isInputValid = int.TryParse(Console.ReadLine(), out input);
                     
-                    foreach (var t in validInputs)
+                    if (input > 8 || input < 0)
                     {
-                        if (t == input)
-                        {
-                            isInputValid = true;
-                        }
+                        isInputValid = false;
                     }
 
                     if (!isInputValid)
@@ -127,69 +135,76 @@ namespace SlotMachine
 
                 else if (input == 8) //all lines
                 {
-                    int noOfLinesWon = 0;
-
                     if (slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]) //Top horizontal row
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if ((slotMachineArray[1, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[1, 2]))  //center line and middle horizontal row
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if (slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2])  //bottom horizontal
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0])) //left vertical row
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1])) //middle vertical row
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2])) //right vertical row
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if (slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2])  //diagonal line
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
 
                     if (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2])  //diagonal line
                     {
-                        noOfLinesWon += 1;
+                        totalLinesWonPlayingAllLines += 1;
                     }
                     
-                    if (noOfLinesWon == 0)
+                    if (totalLinesWonPlayingAllLines == 0)
                     {
-                        moneyWon -= 1 * 8;
-                        Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                        startingCredit-=1*8;
+                        Console.WriteLine($"Bad Luck you lost. Now you have {startingCredit} USD credit remaining");
                     }
-                    else
+                    else if (totalLinesWonPlayingAllLines == 8) //won all lines
                     {
-                        moneyWon += WIN_MONEY_AMOUNT_PER_LINE * noOfLinesWon;
-                        Console.WriteLine($"Congrats you won. You have total {moneyWon} dollars");
+                        moneyWon += WIN_MONEY_AMOUNT_PER_LINE * totalLinesWonPlayingAllLines;
+                        startingCredit += WIN_MONEY_AMOUNT_PER_LINE * totalLinesWonPlayingAllLines;
+                        Console.WriteLine($"Congrats you won. You have won {moneyWon} dollars");
+                    }
+                    {
+                        moneyWon += WIN_MONEY_AMOUNT_PER_LINE * totalLinesWonPlayingAllLines;
+                        startingCredit = startingCredit + moneyWon - (1 * 8 - totalLinesWonPlayingAllLines) ;
+                        Console.WriteLine($"Congrats you won. You have won {moneyWon} dollars by winning {totalLinesWonPlayingAllLines} lines but have lost {8- totalLinesWonPlayingAllLines} lines. You have now {startingCredit} USD credit remaining");
                     }
                 }
 
-                if (wonLines > 0)
+                if (input < 8) //display message only while playing single line. 8 means playing all lines
                 {
-                    moneyWon += WIN_MONEY_AMOUNT_PER_LINE ;
-                    Console.WriteLine($"Congrats you won. You have total {moneyWon} dollars");
-                }
-                else
-                {
-                    moneyWon -= 1;
-                    Console.WriteLine($"Bad Luck you lost. Now you have {moneyWon} USD amount remaining");
+                    if (wonLines > 0)
+                    {
+                        startingCredit += WIN_MONEY_AMOUNT_PER_LINE;
+                        Console.WriteLine($"Congrats you won. You won {WIN_MONEY_AMOUNT_PER_LINE} dollars");
+                    }
+                    else
+                    {
+                        startingCredit -= 1;
+                        Console.WriteLine($"Bad Luck you lost. Now you have {startingCredit} USD credit remaining");
+                    }
                 }
 
                 Console.WriteLine("Press Y to continue to play");
@@ -207,7 +222,6 @@ namespace SlotMachine
 
                 Console.WriteLine($"Amount won so far is {moneyWon} USD");
             } while (continueToPlay);
-            
 
         }
 
