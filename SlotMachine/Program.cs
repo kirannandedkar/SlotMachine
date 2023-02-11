@@ -35,7 +35,7 @@ namespace SlotMachine
                 
 
                 bool isInputValid;
-                int input;
+                int selectedOption;
                 int wonLines = 0;
                 int totalLinesWonPlayingAllLines = 0;
                 double moneyWon = 0;
@@ -50,9 +50,9 @@ namespace SlotMachine
                 
                 do
                 {
-                    isInputValid = int.TryParse(Console.ReadLine(), out input);
+                    isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);
                     
-                    if (input > 8 || input < 0)
+                    if (selectedOption > 8 || selectedOption < 0)
                     {
                         isInputValid = false;
                     }
@@ -75,7 +75,7 @@ namespace SlotMachine
                 }
                 OutputArray(slotMachineArray);
 
-                if (input == 1) //center line and middle horizontal row
+                if (selectedOption == 1) //center line and middle horizontal row
                 {
                     if (slotMachineArray[1, 0] == slotMachineArray[1, 1] &&
                         slotMachineArray[1, 1] == slotMachineArray[1, 2])
@@ -84,7 +84,7 @@ namespace SlotMachine
                     }
                    
                 }
-                else if (input == 2) //Top horizontal row
+                else if (selectedOption == 2) //Top horizontal row
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]))
                     {
@@ -92,7 +92,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 3) //bottom horizontal row
+                else if (selectedOption == 3) //bottom horizontal row
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2]))
                     {
@@ -100,7 +100,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 4) //left vertical row
+                else if (selectedOption == 4) //left vertical row
                 {
                     if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0]))
                     {
@@ -108,7 +108,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 5) //middle vertical row
+                else if (selectedOption == 5) //middle vertical row
                 {
                     if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1]))
                     {
@@ -116,7 +116,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 6) //right vertical row
+                else if (selectedOption == 6) //right vertical row
                 {
                     if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2]))
                     {
@@ -124,7 +124,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 7) //diagonal lines
+                else if (selectedOption == 7) //diagonal lines
                 {
                     if ((slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2]) ||
                         (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2]))
@@ -133,7 +133,7 @@ namespace SlotMachine
                     }
                 }
 
-                else if (input == 8) //all lines
+                else if (selectedOption == 8) //all lines
                 {
                     if (slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]) //Top horizontal row
                     {
@@ -193,7 +193,7 @@ namespace SlotMachine
                     }
                 }
 
-                if (input < 8) //display message only while playing single line. 8 means playing all lines
+                if (selectedOption < 8) //display message only while playing single line. 8 means playing all lines
                 {
                     if (wonLines > 0)
                     {
