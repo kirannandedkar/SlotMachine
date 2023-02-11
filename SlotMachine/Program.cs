@@ -18,7 +18,7 @@ namespace SlotMachine
             Random rnd = new Random();
             int[] validInputs = { 1, 2, 3, 4, 5, 6, 7, 8 };
             
-            double startingCredit = 10;
+            double totalCredit = 10;
             do
             {
                 Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
@@ -37,12 +37,10 @@ namespace SlotMachine
                 bool isInputValid;
                 int selectedOption;
                 int wonLines = 0;
-                int totalLinesWonPlayingAllLines = 0;
-                double moneyWon = 0;
 
-                Console.WriteLine($"Your current credit is {startingCredit} USD");
+                Console.WriteLine($"Your current credit is {totalCredit} USD");
 
-                if (startingCredit <= 0)
+                if (totalCredit <= 0)
                 {
                     Console.WriteLine("Sorry you cant play anymore as you have no credit remaining");
                     break;
@@ -67,11 +65,11 @@ namespace SlotMachine
 
                 if (selectedOption == 8)
                 {
-                    startingCredit -= 8;
+                    totalCredit -= 8;
                 }
                 else
                 {
-                    startingCredit -= 1;
+                    totalCredit -= 1;
                 }
 
                 for (int i = 0; i < slotMachineArray.GetLength(0); i++)
@@ -190,13 +188,13 @@ namespace SlotMachine
 
                 if (wonLines > 0)
                 {
-                    startingCredit += (WIN_MONEY_AMOUNT_PER_LINE * wonLines);
+                    totalCredit += (WIN_MONEY_AMOUNT_PER_LINE * wonLines);
                     Console.WriteLine($"Congrats you won. You won {WIN_MONEY_AMOUNT_PER_LINE} dollars");
                 }
                 else
                 {
-                    startingCredit -= (1 * wonLines);
-                    Console.WriteLine($"Bad Luck you lost. Now you have {startingCredit} USD credit remaining");
+                    totalCredit -= (1 * wonLines);
+                    Console.WriteLine($"Bad Luck you lost. Now you have {totalCredit} USD credit remaining");
                 }
 
                 Console.WriteLine("Press Y to continue to play");
@@ -211,7 +209,7 @@ namespace SlotMachine
                     continueToPlay = false;
                 }
 
-                Console.WriteLine($"Amount won so far is {startingCredit} USD");
+                Console.WriteLine($"Amount won so far is {totalCredit} USD");
             } while (continueToPlay);
 
         }
