@@ -15,29 +15,16 @@ namespace SlotMachine
             Console.WriteLine("Here are few rules on how to play the game");
             
             int[,] slotMachineArray = new int[3, 3];
-
+                
             bool continueToPlay;
             Random rnd = new Random();
-            
+            bool isInputValid;
             do
             {
-                Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
-                                  "\nPress 2 if you want to play top horizontal line" +
-                                  "\nPress 3 if you want to play bottom horizontal line" +
-                                  "\nPress 4 if you want to play left vertical line" +
-                                  "\nPress 5 if you want to play middle vertical line" +
-                                  "\nPress 6 if you want to play right vertical line" +
-                                  "\nPress 7 if you want to play diagonal lines" +
-                                  "\nPress 8 if you want to play all lines" +
-                                  "\n Each line cost 1 dollar. So if you select 5 then it will cost you 5 dollars" +
-                                  "\n For each winning line you win 2 dollars. So if you win more than 1 line you get no of lines * 2 dollars back" +
-                                  "\n Please enter your choice of line you want to play");
-                
-
-                bool isInputValid;
                 int selectedOption;
                 int wonLines = 0;
 
+                PrintRulesToConsole();
                 Console.WriteLine($"Your current credit is {TOTAL_CREDIT} USD");
 
                 if (TOTAL_CREDIT <= 0)
@@ -48,22 +35,31 @@ namespace SlotMachine
 
                 do
                 {
-                    isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);
-                    
+                    isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);    
                     if (selectedOption > 8 || selectedOption <= 0)
                     {
                         isInputValid = false;
                     }
+                    else if (selectedOption == 8 && TOTAL_CREDIT < 8)
+                    {
+                        Console.WriteLine("Sorry you dont have enough credit left. select different input");
+                        isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);
+                    
+                        if (selectedOption > 8 || selectedOption <= 0)
+                        {
+                            isInputValid = false;
+                        }
+                    }
 
                     if (!isInputValid)
                     {
-                        Console.WriteLine("Wrong input, Please select valid option");
+                        Console.WriteLine("Wrong input, Please select valid input");
                         
                     }
                     
                 } while (!isInputValid);
 
-                if (selectedOption == 8)
+                if(selectedOption == 8)
                 {
                     TOTAL_CREDIT -= 8;
                 }
@@ -82,55 +78,31 @@ namespace SlotMachine
                 }
                 OutputArray(slotMachineArray);
 
-                if (selectedOption == 1) //center line and middle horizontal row
+                
+                if (selectedOption == 1 && CompareHorizontalRows(slotMachineArray, 1)) //center line and middle horizontal row
                 {
-                    if (slotMachineArray[1, 0] == slotMachineArray[1, 1] &&
-                        slotMachineArray[1, 1] == slotMachineArray[1, 2])
-                    {
-                        wonLines++;
-                    }
-                   
+                    wonLines++;
                 }
-                else if (selectedOption == 2) //Top horizontal row
+                else if (selectedOption == 2 && CompareHorizontalRows(slotMachineArray, 0)) //Top horizontal row
                 {
-                    if ((slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]))
-                    {
                         wonLines++;
-                    }
                 }
-
-                else if (selectedOption == 3) //bottom horizontal row
+                else if (selectedOption == 3 && CompareHorizontalRows(slotMachineArray, 2)) //bottom horizontal row
                 {
-                    if ((slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2]))
-                    {
-                        wonLines++;
-                    }
+                    wonLines++;
                 }
-
-                else if (selectedOption == 4) //left vertical row
+                else if (selectedOption == 4 && CompareVerticalRows(slotMachineArray, 0)) //left vertical row
                 {
-                    if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0]))
-                    {
-                        wonLines++;
-                    }
+                    wonLines++;
                 }
-
-                else if (selectedOption == 5) //middle vertical row
+                else if (selectedOption == 5 && CompareVerticalRows(slotMachineArray, 1)) //middle vertical row
                 {
-                    if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1]))
-                    {
-                        wonLines++;
-                    }
+                    wonLines++;
                 }
-
-                else if (selectedOption == 6) //right vertical row
+                else if (selectedOption == 6 && CompareVerticalRows(slotMachineArray, 2)) //right vertical row
                 {
-                    if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2]))
-                    {
-                        wonLines++;
-                    }
+                    wonLines++;
                 }
-
                 else if (selectedOption == 7) //diagonal lines
                 {
                     if (slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2])
@@ -145,34 +117,35 @@ namespace SlotMachine
 
                 else if (selectedOption == 8) //all lines
                 {
-                    if (slotMachineArray[0, 0] == slotMachineArray[0, 1] && slotMachineArray[0, 1] == slotMachineArray[0, 2]) //Top horizontal row
+                    if (CompareHorizontalRows(slotMachineArray, 0))
                     {
-                        wonLines += 1;
+                        wonLines++;
+                    }
+                    
+                    if (CompareHorizontalRows(slotMachineArray, 1))
+                    {
+                        wonLines++;
+                    }
+                    
+                    if (CompareHorizontalRows(slotMachineArray, 2))
+                    {
+                        wonLines++;
+                    }
+                    
+                    if (CompareVerticalRows(slotMachineArray, 0))
+                    {
+                        wonLines++;
                     }
 
-                    if ((slotMachineArray[1, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[1, 2]))  //center line and middle horizontal row
+                    
+                    if (CompareVerticalRows(slotMachineArray, 1))
                     {
-                        wonLines += 1;
+                        wonLines++;
                     }
-
-                    if (slotMachineArray[2, 0] == slotMachineArray[2, 1] && slotMachineArray[2, 1] == slotMachineArray[2, 2])  //bottom horizontal
+                    
+                    if (CompareVerticalRows(slotMachineArray, 2))
                     {
-                        wonLines += 1;
-                    }
-
-                    if ((slotMachineArray[0, 0] == slotMachineArray[1, 0] && slotMachineArray[1, 0] == slotMachineArray[2, 0])) //left vertical row
-                    {
-                        wonLines += 1;
-                    }
-
-                    if ((slotMachineArray[0, 1] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 1])) //middle vertical row
-                    {
-                        wonLines += 1;
-                    }
-
-                    if ((slotMachineArray[0, 2] == slotMachineArray[1, 2] && slotMachineArray[1, 2] == slotMachineArray[2, 2])) //right vertical row
-                    {
-                        wonLines += 1;
+                        wonLines++;
                     }
 
                     if (slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2])  //diagonal line
@@ -189,7 +162,7 @@ namespace SlotMachine
                 if (wonLines > 0)
                 {
                     TOTAL_CREDIT += (WIN_MONEY_AMOUNT_PER_LINE * wonLines);
-                    Console.WriteLine($"Congrats you won. You won {WIN_MONEY_AMOUNT_PER_LINE} dollars");
+                    Console.WriteLine($"Congrats you won. You won {WIN_MONEY_AMOUNT_PER_LINE * wonLines} dollars");
                 }
                 else
                 {
@@ -210,7 +183,7 @@ namespace SlotMachine
                 }
 
                 Console.WriteLine($"Amount won so far is {TOTAL_CREDIT} USD");
-            } while (continueToPlay);
+            } while (continueToPlay && isInputValid);
 
         }
 
@@ -225,6 +198,42 @@ namespace SlotMachine
 
                 Console.WriteLine("\n");
             }
+        }
+
+        static void PrintRulesToConsole()
+        {
+            Console.WriteLine("Press 1 if you want to play center line/middle horizontal line" +
+                              "\nPress 2 if you want to play top horizontal line" +
+                              "\nPress 3 if you want to play bottom horizontal line" +
+                              "\nPress 4 if you want to play left vertical line" +
+                              "\nPress 5 if you want to play middle vertical line" +
+                              "\nPress 6 if you want to play right vertical line" +
+                              "\nPress 7 if you want to play diagonal lines" +
+                              "\nPress 8 if you want to play all lines" +
+                              "\n Each line cost 1 dollar. So if you select 5 then it will cost you 5 dollars" +
+                              "\n For each winning line you win 2 dollars. So if you win more than 1 line you get no of lines * 2 dollars back" +
+                              "\n Please enter your choice of line you want to play");
+        }
+
+        static bool CompareHorizontalRows(int[,] passedSlotMachineArray, int lineNumber)
+        {
+            if (passedSlotMachineArray[lineNumber, 0] == passedSlotMachineArray[lineNumber, 1] &&
+                passedSlotMachineArray[lineNumber, 1] == passedSlotMachineArray[lineNumber, 2])
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        static bool CompareVerticalRows(int[,] passedSlotMachineArray, int lineNumber)
+        {
+            if ((passedSlotMachineArray[0, lineNumber] == passedSlotMachineArray[1, lineNumber] && 
+                 passedSlotMachineArray[1, lineNumber] == passedSlotMachineArray[2, lineNumber]))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
