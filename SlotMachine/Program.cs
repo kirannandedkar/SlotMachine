@@ -44,11 +44,7 @@ namespace SlotMachine
                     {
                         Console.WriteLine("Sorry you dont have enough credit left. select different input");
                         isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);
-                    
-                        if (selectedOption > 8 || selectedOption <= 0)
-                        {
-                            isInputValid = false;
-                        }
+                        isInputValid = false;
                     }
 
                     if (!isInputValid)
