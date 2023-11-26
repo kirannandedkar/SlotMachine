@@ -178,7 +178,7 @@ namespace SlotMachine
                 }
 
                 Console.WriteLine($"Amount won so far is {TOTAL_CREDIT} USD");
-            } while (continueToPlay && isInputValid);
+            } while (continueToPlay);
 
         }
 
