@@ -162,7 +162,6 @@ namespace SlotMachine
                 }
                 else
                 {
-                    TOTAL_CREDIT -= (1 * wonLines);
                     Console.WriteLine($"Bad Luck you lost. Now you have {TOTAL_CREDIT} USD credit remaining");
                 }
 
