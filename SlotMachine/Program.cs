@@ -144,12 +144,12 @@ namespace SlotMachine
                         wonLines++;
                     }
 
-                    if (slotMachineArray[2, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[0, 2])  //diagonal line
+                    if(CompareDiagonalRows(slotMachineArray, 2,0))
                     {
                         wonLines += 1;
                     }
 
-                    if (slotMachineArray[0, 0] == slotMachineArray[1, 1] && slotMachineArray[1, 1] == slotMachineArray[2, 2])  //diagonal line
+                    if(CompareDiagonalRows(slotMachineArray, 0,2))
                     {
                         wonLines += 1;
                     }
@@ -220,11 +220,19 @@ namespace SlotMachine
             return false;
 
         }
-
         static bool CompareVerticalRows(int[,] passedSlotMachineArray, int lineNumber)
         {
             if ((passedSlotMachineArray[0, lineNumber] == passedSlotMachineArray[1, lineNumber] && 
                  passedSlotMachineArray[1, lineNumber] == passedSlotMachineArray[2, lineNumber]))
+            {
+                return true;
+            }
+            return false;
+        }
+        static bool CompareDiagonalRows(int[,] passedSlotMachineArray, int lineNumber1, int lineNumber2)
+        {
+            if (passedSlotMachineArray[lineNumber1, 0] == passedSlotMachineArray[1, 1] 
+                && passedSlotMachineArray[1, 1] == passedSlotMachineArray[lineNumber2, 2])  //diagonal line
             {
                 return true;
             }
