@@ -206,7 +206,7 @@ namespace SlotMachine
                               "\nPress 6 if you want to play right vertical line" +
                               "\nPress 7 if you want to play diagonal lines" +
                               "\nPress 8 if you want to play all lines" +
-                              "\n Each line cost 1 dollar. So if you select 5 then it will cost you 5 dollars" +
+                              "\n Each line cost 1 dollar. So if you select input from 1 to 7 then it will cost you 1 dollar and selecting input 8 costs you 8 dollars" +
                               "\n For each winning line you win 2 dollars. So if you win more than 1 line you get no of lines * 2 dollars back" +
                               "\n Please enter your choice of line you want to play");
         }
