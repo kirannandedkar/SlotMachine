@@ -1,6 +1,4 @@
 ﻿
-using System.ComponentModel.Design;
-
 namespace SlotMachine
 {
     internal class Program
@@ -113,35 +111,17 @@ namespace SlotMachine
 
                 else if (selectedOption == 8) //all lines
                 {
-                    if (CompareHorizontalRows(slotMachineArray, 0))
+                    for (int i = 0; i <= 2; i++)
                     {
-                        wonLines++;
-                    }
+                        if (CompareHorizontalRows(slotMachineArray, i))
+                        {
+                            wonLines++;
+                        }
                     
-                    if (CompareHorizontalRows(slotMachineArray, 1))
-                    {
-                        wonLines++;
-                    }
-                    
-                    if (CompareHorizontalRows(slotMachineArray, 2))
-                    {
-                        wonLines++;
-                    }
-                    
-                    if (CompareVerticalRows(slotMachineArray, 0))
-                    {
-                        wonLines++;
-                    }
-
-                    
-                    if (CompareVerticalRows(slotMachineArray, 1))
-                    {
-                        wonLines++;
-                    }
-                    
-                    if (CompareVerticalRows(slotMachineArray, 2))
-                    {
-                        wonLines++;
+                        if (CompareVerticalRows(slotMachineArray, i))
+                        {
+                            wonLines++;
+                        }
                     }
 
                     if(CompareDiagonalRows(slotMachineArray, 2,0))
@@ -153,6 +133,8 @@ namespace SlotMachine
                     {
                         wonLines += 1;
                     }
+                    
+                    
                 }
 
                 if (wonLines > 0)
