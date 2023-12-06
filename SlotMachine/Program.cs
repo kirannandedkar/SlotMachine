@@ -38,7 +38,7 @@ namespace SlotMachine
                     {
                         isInputValid = false;
                     }
-                    else if (selectedOption == 8 && TOTAL_CREDIT < 8)
+                    else if (selectedOption == (int)RowsEnum.AllRows && TOTAL_CREDIT < 8)
                     {
                         Console.WriteLine("Sorry you dont have enough credit left. select different input");
                         isInputValid = false;
@@ -52,7 +52,7 @@ namespace SlotMachine
                     
                 } while (!isInputValid);
 
-                if(selectedOption == 8)
+                if(selectedOption == (int)RowsEnum.AllRows)
                 {
                     TOTAL_CREDIT -= 8;
                 }
