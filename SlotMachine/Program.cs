@@ -23,7 +23,7 @@ namespace SlotMachine
                 int selectedOption;
                 int wonLines = 0;
 
-                SlotMachine.PrintRulesToConsole();
+                UILogic.PrintRulesToConsole();
                 Console.WriteLine($"Your current credit is {TOTAL_CREDIT} USD");
 
                 if (TOTAL_CREDIT <= 0)
@@ -71,7 +71,7 @@ namespace SlotMachine
                     }
                 }
 
-                SlotMachine.OutputArray(slotMachineArray);
+                UILogic.OutputArray(slotMachineArray);
 
                 wonLines = SlotMachine.RowsWon(selectedOption, slotMachineArray);
 
