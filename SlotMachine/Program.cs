@@ -11,8 +11,9 @@ namespace SlotMachine
             double TOTAL_CREDIT = STARTING_CREDIT;
             Console.WriteLine("Welcome to Slot Machine Game");
             Console.WriteLine("Here are few rules on how to play the game");
-            
-            int[,] slotMachineArray = new int[3, 3];
+            int columnLength = 3;
+            int rows = 3;
+            int[,] slotMachineArray = new int[columnLength, rows];
                 
             bool continueToPlay;
             Random rnd = new Random();
