@@ -4,11 +4,11 @@ namespace SlotMachine
     internal class Program
     {
         const double WIN_MONEY_AMOUNT_PER_LINE = 2;
-        private static double TOTAL_CREDIT = 10;
-
+        const double STARTING_CREDIT = 10;
 
         static void Main(string[] args)
         {
+            double TOTAL_CREDIT = STARTING_CREDIT;
             Console.WriteLine("Welcome to Slot Machine Game");
             Console.WriteLine("Here are few rules on how to play the game");
             
