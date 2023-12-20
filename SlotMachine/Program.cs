@@ -1,5 +1,4 @@
-﻿
-namespace SlotMachine
+﻿namespace SlotMachine
 {
     internal class Program
     {
