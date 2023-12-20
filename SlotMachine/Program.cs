@@ -35,11 +35,11 @@ namespace SlotMachine
                 do
                 {
                     isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);    
-                    if (selectedOption > 8 || selectedOption <= 0)
+                    if (selectedOption > (int)RowsEnum.AllRows || selectedOption <= 0)
                     {
                         isInputValid = false;
                     }
-                    else if (selectedOption == (int)RowsEnum.AllRows && TOTAL_CREDIT < 8)
+                    else if (selectedOption == (int)RowsEnum.AllRows && TOTAL_CREDIT < (int)RowsEnum.AllRows)
                     {
                         Console.WriteLine("Sorry you dont have enough credit left. select different input");
                         isInputValid = false;
