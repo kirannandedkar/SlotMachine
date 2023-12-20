@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SlotMachine
 {
-    public class UILogic
+    public class UIPresenter
     {
         public static void OutputArray(int[,] array)
         {
@@ -34,6 +34,30 @@ namespace SlotMachine
                               "\n Each row cost 1 dollar. So if you select input from 1 to 7 then it will cost you 1 dollar and selecting input 8 costs you 8 dollars" +
                               "\n For each winning row you win 2 dollars. So if you win more than 1 row you get no of rows * 2 dollars back" +
                               "\n Please enter your choice of row you want to play");
+        }
+
+        public static void PlayTilValidInputIsEntered(int selectedOption1, double totalCredit, bool isInputValid1)
+        {
+            do
+            {
+                isInputValid1 = int.TryParse(Console.ReadLine(), out selectedOption1);
+                if (selectedOption1 > (int)RowsEnum.AllRows || selectedOption1 <= 0)
+                {
+                    isInputValid1 = false;
+                }
+                else if (selectedOption1 == (int)RowsEnum.AllRows && totalCredit < (int)RowsEnum.AllRows)
+                {
+                    Console.WriteLine("Sorry you dont have enough credit left. select different input");
+                    isInputValid1 = false;
+                }
+
+                if (!isInputValid1)
+                {
+                    Console.WriteLine("Wrong input, Please select valid input");
+
+                }
+
+            } while (!isInputValid1);
         }
     }
 }

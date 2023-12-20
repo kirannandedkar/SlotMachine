@@ -17,13 +17,13 @@ namespace SlotMachine
                 
             bool continueToPlay;
             Random rnd = new Random();
-            bool isInputValid;
+            bool isInputValid = false;
             do
             {
-                int selectedOption;
+                int selectedOption = 0;
                 int wonLines = 0;
 
-                UILogic.PrintRulesToConsole();
+                UIPresenter.PrintRulesToConsole();
                 Console.WriteLine($"Your current credit is {TOTAL_CREDIT} USD");
 
                 if (TOTAL_CREDIT <= 0)
@@ -32,26 +32,8 @@ namespace SlotMachine
                     break;
                 }
 
-                do
-                {
-                    isInputValid = int.TryParse(Console.ReadLine(), out selectedOption);    
-                    if (selectedOption > (int)RowsEnum.AllRows || selectedOption <= 0)
-                    {
-                        isInputValid = false;
-                    }
-                    else if (selectedOption == (int)RowsEnum.AllRows && TOTAL_CREDIT < (int)RowsEnum.AllRows)
-                    {
-                        Console.WriteLine("Sorry you dont have enough credit left. select different input");
-                        isInputValid = false;
-                    }
-
-                    if (!isInputValid)
-                    {
-                        Console.WriteLine("Wrong input, Please select valid input");
-                        
-                    }
-                    
-                } while (!isInputValid);
+                UIPresenter.PlayTilValidInputIsEntered(selectedOption1: selectedOption, totalCredit: TOTAL_CREDIT, isInputValid1: isInputValid);
+                                
 
                 if(selectedOption == (int)RowsEnum.AllRows)
                 {
@@ -71,7 +53,7 @@ namespace SlotMachine
                     }
                 }
 
-                UILogic.OutputArray(slotMachineArray);
+                UIPresenter.OutputArray(slotMachineArray);
 
                 wonLines = SlotMachine.RowsWon(selectedOption, slotMachineArray);
 
